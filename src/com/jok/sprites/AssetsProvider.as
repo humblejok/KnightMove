@@ -19,6 +19,12 @@ package com.jok.sprites
 		[Embed(source="/../assets/BlackBoard.png")]
 		public static var blackBoard : Class;
 		
+		[Embed(source="/../assets/ChessKnight.png")]
+		public static var chessKnight : Class;
+		
+		[Embed(source="/../assets/Pause.png")]
+		public static var pause : Class;
+		
 		
 		private static var textures : Dictionary = new Dictionary();
 		
