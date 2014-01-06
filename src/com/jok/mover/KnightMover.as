@@ -19,7 +19,10 @@ package com.jok.mover
 			var results : Array = new Array();
 			for each (var m : Number in movements) {
 				var result : Number = knight.getRelativePosition() + m;
-				if (result>=0 && result<this.limit) {
+				var moduloSource : Number = knight.getRelativePosition() % Board.boardWidth;
+				var moduloTarget : Number = result % Board.boardWidth;
+				var offset : Number = Math.abs(moduloTarget - moduloSource);
+				if (result>=0 && result<this.limit && offset<=2) {
 					results.push(m);
 				}
 			}
