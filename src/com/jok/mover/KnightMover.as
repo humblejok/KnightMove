@@ -1,17 +1,17 @@
 package com.jok.mover
 {
-	import com.jok.element.BoardElement;
+	import com.jok.element.KnightElement;
 	import com.jok.sprites.Board;
 
 	public class KnightMover {
 		
 		private var movements : Array = [-17, -15, -10, -6, 6, 10, 15, 17];
 		
-		private var _knight : BoardElement = null;
+		private var _knight : KnightElement = null;
 		
 		private var limit : Number = Board.boardWidth * Board.boardHeight;
 		
-		public function KnightMover(knight : BoardElement) {
+		public function KnightMover(knight : KnightElement) {
 			this.knight = knight;
 		}
 		
@@ -29,17 +29,13 @@ package com.jok.mover
 			return results;
 		}
 
-		public function get knight() : BoardElement {
+		public function get knight() : KnightElement {
 			return _knight;
 		}
 
-		public function set knight(value:BoardElement) : void {
+		public function set knight(value : KnightElement) : void {
 			_knight = value;
 		}
 
-		
-		public function move(movement : Number):void {
-			_knight.applyMovement(movement);
-		}
 	}
 }
