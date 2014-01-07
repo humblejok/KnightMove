@@ -22,8 +22,13 @@ package com.jok.sprites
 		[Embed(source="/../assets/ChessKnight.png")]
 		public static var chessKnight : Class;
 		
+		[Embed(source="/../assets/ChessBlob.png")]
+		public static var chessBlob : Class;
+		
 		[Embed(source="/../assets/Pause.png")]
 		public static var pause : Class;
+		
+		
 		
 		
 		private static var textures : Dictionary = new Dictionary();

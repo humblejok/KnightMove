@@ -7,8 +7,8 @@ package com.jok.element
 
 	public class KnightElement extends Element {
 		
-		public function KnightElement(row : Number, column : Number) {
-			super(row, column, AssetsProvider.getAsTexture("chessKnight"));
+		public function KnightElement(parent : Board,row : Number, column : Number) {
+			super(parent, row, column, AssetsProvider.getAsTexture("chessKnight"));
 		}
 		
 		public function predictMovement(movement : Number) : Array {

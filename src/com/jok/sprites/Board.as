@@ -1,5 +1,6 @@
 package com.jok.sprites
 {
+	import com.jok.element.BlobElement;
 	import com.jok.element.BoardElement;
 	import com.jok.element.KnightElement;
 	import com.jok.mover.KnightMover;
@@ -25,6 +26,9 @@ package com.jok.sprites
 		private var checkboxes : Array;
 		private var startButton : Button;
 		private var pauseButton : Button;
+		private var information : TextField;
+		private var score : TextField;
+		private var blob : BlobElement;
 		
 		private var players : Array = new Array();
 		
@@ -36,6 +40,7 @@ package com.jok.sprites
 		private var currentMovement : Number;
 		private var _pathes : Array = new Array();
 		private var _currentMvtGap : Number;
+		private var _scoreValue : Number = 0;
 		
 		public function Board() {
 			super();
@@ -46,12 +51,6 @@ package com.jok.sprites
 			trace("Board added")
 			background = new Image(AssetsProvider.getAsTexture("backGround"));
 			this.addChild(background);
-			
-			checkboxes = new Array(Board.boardHeight * Board.boardWidth);
-			for (var i : Number = 0;i<Board.boardHeight * Board.boardWidth;i++) {
-				checkboxes[i] = new BoardElement(Math.floor(i / Board.boardWidth), i % Board.boardWidth);
-				this.addChild(checkboxes[i].image);
-			}
 			
 			startButton = new Button(AssetsProvider.getAsTexture("chessKing"));
 			startButton.x = 144;
@@ -65,6 +64,22 @@ package com.jok.sprites
 			pauseButton.width = 40;
 			pauseButton.height = 40;
 			pauseButton.visible = false;
+
+			checkboxes = new Array(Board.boardHeight * Board.boardWidth);
+			for (var i : Number = 0;i<Board.boardHeight * Board.boardWidth;i++) {
+				checkboxes[i] = new BoardElement(this, Math.floor(i / Board.boardWidth), i % Board.boardWidth);
+				this.addChild(checkboxes[i].image);
+				trace("->" + checkboxes[i].image.x + "," + checkboxes[i].image.y + "<-");
+			}
+			information = new TextField(300,100,"EMPTY","Verdana", 36, 0xDD11DD, true)
+			information.x = 250;
+			information.y = 250;
+			information.visible = false;
+			
+			score = new TextField(100,50,"0","Verdana", 24, 0x1111DD, true)
+			score.x = 600;
+			score.y = 15;
+			score.visible = false;
 			
 			startButton.addEventListener(Event.TRIGGERED, onStartButtonTriggered );
 			pauseButton.addEventListener(Event.TRIGGERED, onPauseButtonTriggered );
@@ -77,10 +92,14 @@ package com.jok.sprites
 			if (status=="paused") {
 				status = previousStatus;
 				timePrevious = getTimer()-_currentMvtGap;
+				information.text = "";
+				information.visible = false;
 			} else {
 				previousStatus = status;
 				status = "paused";
 				_currentMvtGap = getTimer()-timePrevious;
+				information.text = "PAUSE";
+				information.visible = true;
 			}
 			trace("Pause clicked - " + status + " - " + _currentMvtGap);
 		}
@@ -90,9 +109,18 @@ package com.jok.sprites
 			startButton.visible = false;
 			pauseButton.visible = true;
 			
-			this.players.push(new KnightMover(new KnightElement(2,4)));
+			this.players.push(new KnightMover(new KnightElement(this, 2, 4)));
+			this.blob = new BlobElement(this, 0,0);
+			
+			this.addChild(blob.image);
 			this.addChild(players[0].knight.image); // TODO Change to dynamic
-			status = "move";
+			
+			this.status = "move";
+			this.score.visible = true;
+			
+			this.addChild(information);
+			this.addChild(score);
+			
 			timePrevious = getTimer();
 			this.addEventListener(Event.ENTER_FRAME, checkTimeElapsed);
 		}
@@ -137,12 +165,10 @@ package com.jok.sprites
 							var position : Number = p.knight.getRelativePosition() + currentMovement;
 							p.knight.setRelativePosition(position);
 							checkboxes[position].elementHit();
-							if (checkboxes[position].hit==0) {
-								var tf : TextField = new TextField(300,100,"Game Over","Verdana", 36, 0xDD11FDD, true);
-								tf.x = 250;
-								tf.y = 250;
-								this.addChild(tf);
-								onPauseButtonTriggered(null); 
+							if (checkboxes[position].hit<0) {
+								 information.text = "GAME OVER";
+								 information.visible = true;
+								 _status = "stopped";
 							}
 						}
 						timePrevious = getTimer();
@@ -153,6 +179,9 @@ package com.jok.sprites
 				{
 					break;
 				}
+			}
+			for each(var cb : BoardElement in checkboxes) {
+				cb.spin();
 			}
 		}
 		
@@ -167,6 +196,16 @@ package com.jok.sprites
 		public function set status(value:String) : void {
 			_status = value;
 		}
+
+		public function get scoreValue() : Number {
+			return _scoreValue;
+		}
+
+		public function set scoreValue(value : Number) : void {
+			_scoreValue = value;
+			score.text = _scoreValue.toString();
+		}
+
 
 	}
 }

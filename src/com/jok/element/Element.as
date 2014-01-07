@@ -7,32 +7,34 @@ package com.jok.element
 
 	public class Element {
 		
-		public static const size : Number = 90;
+		public var size : Number = 90;
+		
 		private var _column : Number = 0;
 		private var _row : Number = 0;
+		private var _board : Board;
 		
 		public var image : Image;
 		
-		public function Element(row : Number, column : Number, texture : Texture = null) {
+		public function Element(parent : Board, row : Number, column : Number, texture : Texture = null) {
 			
 			this.column = column;
 			this.row = row;
+			this._board = parent;
 
 			this.image = new Image(texture);
 			this.image.alpha = 1.0;
-			
 			this.image.width = size;
 			this.image.height = size;
 			
 			this.setPositionOnBoard();
 		}
 		
-		public static function convertRowToPosition(r : Number) : Number {
-			return ((600 - Board.boardHeight * Element.size) / 2) + (r * size);
+		public function convertRowToPosition(r : Number) : Number {
+			return ((600 - Board.boardHeight * this.size) / 2) + (r * this.size);
 		}
 		
-		public static function convertColumnToPosition(c : Number) : Number {
-			return ((800 - Board.boardWidth * Element.size) / 2) + (c * size);
+		public function convertColumnToPosition(c : Number) : Number {
+			return ((800 - Board.boardWidth * this.size) / 2) + (c * this.size);
 		}
 		
 		public function setPositionOnBoard() : void {
@@ -64,6 +66,15 @@ package com.jok.element
 		public function set row(value : Number) : void {
 			_row = value;
 		}
+
+		public function get board() : Board {
+			return _board;
+		}
+
+		public function set board(value : Board) : void {
+			_board = value;
+		}
+
 		
 	}
 }
