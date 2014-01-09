@@ -106,9 +106,9 @@ package com.jok.sprites
 		}
 		
 		private function onStartButtonTriggered(event : Event) : void {
-			startButton.removeEventListener(Event.TRIGGERED, onStartButtonTriggered);
-			startButton.visible = false;
-			pauseButton.visible = true;
+			this.startButton.removeEventListener(Event.TRIGGERED, onStartButtonTriggered);
+			this.startButton.visible = false;
+			this.pauseButton.visible = true;
 			
 			this.players.push(new KnightElement(this, 2, 4));
 			this.blob = new BlobElement(this, 0,0);
@@ -125,6 +125,30 @@ package com.jok.sprites
 			
 			timePrevious = getTimer();
 			this.addEventListener(Event.ENTER_FRAME, checkTimeElapsed);
+		}
+		
+		
+		private function restartGame(event : Event) : void {
+			this.scoreValue = 0;
+			for each(var cb : BoardElement in checkboxes) {
+				cb.repair(true);
+			}
+			for each(var player : KnightElement in players) {
+				player.setRelativePosition(20);
+				player.displayOnBoard();
+				player.image.visible = true;
+			}
+			this.blob.move(players);
+			this.blob.image.visible = true;
+			information.text = "";
+			information.visible = false;
+			startButton.removeEventListener(Event.TRIGGERED, restartGame);
+			startButton.visible = false;
+			pauseButton.visible = true;
+			
+			timePrevious = getTimer();
+			
+			this.status = "move";
 		}
 		
 		private function checkTimeElapsed(event : Event):void {
@@ -168,14 +192,15 @@ package com.jok.sprites
 							player.setRelativePosition(position);
 							checkboxes[position].elementHit();
 							if (checkboxes[position].hit<0) {
+								// TODO Move some code, we are looping
 								information.text = "GAME OVER";
 								information.visible = true;
 								_status = "stopped";
 								startButton.visible = true;
 								pauseButton.visible = false;
-								startButton.addEventListener(Event.TRIGGERED, onStartButtonTriggered);
+								startButton.addEventListener(Event.TRIGGERED, restartGame);
 								player.image.visible = false;
-								blob.image.visible = true;
+								blob.image.visible = false;
 							}
 							if (player.getRelativePosition()==blob.getRelativePosition()) {
 								this.scoreValue += 100;

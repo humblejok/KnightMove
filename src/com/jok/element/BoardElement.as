@@ -51,13 +51,19 @@ package com.jok.element
 			}
 		}
 		
-		public function repair() : void {
-			if (_hit==0) {
-				_hit = 1;
-				this.board.scoreValue += 50;
+		public function repair(complete : Boolean = false) : void {
+			if (!complete) {
+				if (_hit==0) {
+					_hit = 1;
+					this.board.scoreValue += 50;
+					this.image.alpha = BoardElement.ALPHAS[_hit];
+				}
+				this.flipping += FLIP;
+			} else {
+				this._hit = 3;
+				this.flipping = 0;
 				this.image.alpha = BoardElement.ALPHAS[_hit];
 			}
-			this.flipping += FLIP;
 		}
 
 	}
