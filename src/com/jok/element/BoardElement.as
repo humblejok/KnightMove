@@ -21,7 +21,7 @@ package com.jok.element
 			this.image.rotation = 0.0;
 		}
 		
-		override public function setPositionOnBoard() : void {
+		override public function displayOnBoard() : void {
 			this.image.alignPivot();
 			this.image.x = convertColumnToPosition(column) + Math.floor(this.size / 2);
 			this.image.y = convertRowToPosition(row) + Math.floor(this.size / 2);
@@ -42,13 +42,22 @@ package com.jok.element
 		}
 		
 		public function spin() : void {
-			if (flipping>0) {
+			if (flipping>0 && board.status!="paused") {
 				this.image.rotation = this.image.rotation + deg2rad(flipStep);
 				flipping -= 1;
 				if (flipping==0) {
 					this.image.alpha = BoardElement.ALPHAS[_hit];
 				}
 			}
+		}
+		
+		public function repair() : void {
+			if (_hit==0) {
+				_hit = 1;
+				this.board.scoreValue += 50;
+				this.image.alpha = BoardElement.ALPHAS[_hit];
+			}
+			this.flipping += FLIP;
 		}
 
 	}

@@ -26,7 +26,7 @@ package com.jok.element
 			this.image.width = size;
 			this.image.height = size;
 			
-			this.setPositionOnBoard();
+			this.displayOnBoard();
 		}
 		
 		public function convertRowToPosition(r : Number) : Number {
@@ -37,7 +37,7 @@ package com.jok.element
 			return ((800 - Board.boardWidth * this.size) / 2) + (c * this.size);
 		}
 		
-		public function setPositionOnBoard() : void {
+		public function displayOnBoard() : void {
 			this.image.x = convertColumnToPosition(column);
 			this.image.y = convertRowToPosition(row);
 		}

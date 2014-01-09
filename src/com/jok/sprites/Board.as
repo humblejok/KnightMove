@@ -3,7 +3,6 @@ package com.jok.sprites
 	import com.jok.element.BlobElement;
 	import com.jok.element.BoardElement;
 	import com.jok.element.KnightElement;
-	import com.jok.mover.KnightMover;
 	
 	import flash.geom.Point;
 	import flash.utils.getTimer;
@@ -41,6 +40,8 @@ package com.jok.sprites
 		private var _pathes : Array = new Array();
 		private var _currentMvtGap : Number;
 		private var _scoreValue : Number = 0;
+		
+		private var _cleaningStep : Number = 127;
 		
 		public function Board() {
 			super();
@@ -109,11 +110,12 @@ package com.jok.sprites
 			startButton.visible = false;
 			pauseButton.visible = true;
 			
-			this.players.push(new KnightMover(new KnightElement(this, 2, 4)));
+			this.players.push(new KnightElement(this, 2, 4));
 			this.blob = new BlobElement(this, 0,0);
+			this.blob.move(players);
 			
 			this.addChild(blob.image);
-			this.addChild(players[0].knight.image); // TODO Change to dynamic
+			this.addChild(players[0].image); // TODO Change to dynamic
 			
 			this.status = "move";
 			this.score.visible = true;
@@ -126,13 +128,13 @@ package com.jok.sprites
 		}
 		
 		private function checkTimeElapsed(event : Event):void {
-			var p : KnightMover;
+			var player : KnightElement;
 			switch(status) {
 				case "move": {
 					trace(getTimer() + " - Move");
 					if (getTimer()-timePrevious>Board.speed) {
-						for each(p in players) {
-							var movements : Array = p.computeRealizableMovements();
+						for each(player in players) {
+							var movements : Array = player.computeRealizableMovements();
 							trace("Movement - " + movements);
 							var index : Number = Math.round(Math.random() * (movements.length + 1) );
 							while (index>=movements.length) {
@@ -148,37 +150,60 @@ package com.jok.sprites
 				}
 				case "moving": {
 					if (_pathes.length==0) {
-						for each(p in players) {
-							_pathes.push(p.knight.predictMovement(currentMovement));
+						for each(player in players) {
+							_pathes.push(player.predictMovement(currentMovement));
 						}
 					}
-					trace(getTimer() + " - Moving - Remains " + _pathes[0])
+					trace(getTimer() + " - Moving - Remains " + _pathes[0]);
 					for (var i : Number = 0;i<_pathes.length; i++) {
 						var point : Point = _pathes[i][0];
-						players[i].knight.image.x = point.x;
-						players[i].knight.image.y = point.y;
+						players[i].image.x = point.x;
+						players[i].image.y = point.y;
 						_pathes[i].shift();
 					}
 					if (_pathes[_pathes.length-1].length==0) {
 						_status = "move";
-						for each(p in players) {
-							var position : Number = p.knight.getRelativePosition() + currentMovement;
-							p.knight.setRelativePosition(position);
+						for each(player in players) {
+							var position : Number = player.getRelativePosition() + currentMovement;
+							player.setRelativePosition(position);
 							checkboxes[position].elementHit();
 							if (checkboxes[position].hit<0) {
-								 information.text = "GAME OVER";
-								 information.visible = true;
-								 _status = "stopped";
+								information.text = "GAME OVER";
+								information.visible = true;
+								_status = "stopped";
+								startButton.visible = true;
+								pauseButton.visible = false;
+								startButton.addEventListener(Event.TRIGGERED, onStartButtonTriggered);
+								player.image.visible = false;
+								blob.image.visible = true;
+							}
+							if (player.getRelativePosition()==blob.getRelativePosition()) {
+								this.scoreValue += 100;
+								previousStatus = status;
+								this.status = "cleaning";
+								information.text = "Good!";
+								information.visible = true;
 							}
 						}
 						timePrevious = getTimer();
 					}
 				}
+				break;
+				case "cleaning":
+					if (_cleaningStep%4==0) {
+						checkboxes[_cleaningStep/4].repair();
+					}
+					_cleaningStep -= 1;
+					if (_cleaningStep<0) {
+						status = previousStatus;
+						information.visible = false;
+						blob.move(players);
+						_cleaningStep = 127;
+					}
+					break;
 				case "paused":
 				default:
-				{
 					break;
-				}
 			}
 			for each(var cb : BoardElement in checkboxes) {
 				cb.spin();

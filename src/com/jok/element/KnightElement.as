@@ -7,6 +7,9 @@ package com.jok.element
 
 	public class KnightElement extends Element {
 		
+		private static var movements : Array = [-17, -15, -10, -6, 6, 10, 15, 17];
+		private static var limit : Number = Board.boardWidth * Board.boardHeight;
+		
 		public function KnightElement(parent : Board,row : Number, column : Number) {
 			super(parent, row, column, AssetsProvider.getAsTexture("chessKnight"));
 		}
@@ -32,6 +35,20 @@ package com.jok.element
 				results.push(point);
 			}
 			results.push(new Point(convertColumnToPosition(newColumn),convertRowToPosition(newRow)));
+			return results;
+		}
+		
+		public function computeRealizableMovements() : Array {
+			var results : Array = new Array();
+			for each (var m : Number in KnightElement.movements) {
+				var result : Number = this.getRelativePosition() + m;
+				var moduloSource : Number = this.getRelativePosition() % Board.boardWidth;
+				var moduloTarget : Number = result % Board.boardWidth;
+				var offset : Number = Math.abs(moduloTarget - moduloSource);
+				if (result>=0 && result<KnightElement.limit && offset<=2) {
+					results.push(m);
+				}
+			}
 			return results;
 		}
 	}
