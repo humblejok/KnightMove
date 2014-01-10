@@ -24,7 +24,7 @@ package com.jok.element
 			var targetX : Number = convertColumnToPosition(newColumn) - this.image.x;
 			var targetY : Number = convertRowToPosition(newRow) - this.image.y;
 			trace("STARTING:" + this.image.x + "/" + this.image.y + " - TARGET:" + targetX + " - " + targetY);
-			var fpsSpeed : Number = Math.floor(60 * (Board.speed / 1000));
+			var fpsSpeed : Number = Math.floor(60 * (this.board.speed / 1000));
 			
 			targetX = targetX / fpsSpeed;
 			targetY = targetY / fpsSpeed;

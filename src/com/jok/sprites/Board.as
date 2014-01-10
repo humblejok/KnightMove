@@ -19,7 +19,7 @@ package com.jok.sprites
 		
 		public static var boardHeight : Number = 4;
 		
-		public static var speed : Number = 500;
+		public var speed : Number = 500;
 		
 		private var background : Image;
 		private var checkboxes : Array;
@@ -72,12 +72,12 @@ package com.jok.sprites
 				this.addChild(checkboxes[i].image);
 				trace("->" + checkboxes[i].image.x + "," + checkboxes[i].image.y + "<-");
 			}
-			information = new TextField(300,100,"EMPTY","Verdana", 36, 0xDD11DD, true)
+			information = new TextField(300,100,"EMPTY","badaboomFontName", 36, 0xDD11DD, true)
 			information.x = 250;
 			information.y = 250;
 			information.visible = false;
 			
-			score = new TextField(100,50,"0","Verdana", 24, 0x1111DD, true)
+			score = new TextField(100,50,"0","badaboomFontName", 24, 0x1111DD, true)
 			score.x = 600;
 			score.y = 15;
 			score.visible = false;
@@ -109,6 +109,7 @@ package com.jok.sprites
 			this.startButton.removeEventListener(Event.TRIGGERED, onStartButtonTriggered);
 			this.startButton.visible = false;
 			this.pauseButton.visible = true;
+			this.speed = 500;
 			
 			this.players.push(new KnightElement(this, 2, 4));
 			this.blob = new BlobElement(this, 0,0);
@@ -140,13 +141,15 @@ package com.jok.sprites
 			}
 			this.blob.move(players);
 			this.blob.image.visible = true;
-			information.text = "";
-			information.visible = false;
-			startButton.removeEventListener(Event.TRIGGERED, restartGame);
-			startButton.visible = false;
-			pauseButton.visible = true;
+			this.information.text = "";
+			this.information.visible = false;
+			this.startButton.removeEventListener(Event.TRIGGERED, restartGame);
+			this.startButton.visible = false;
+			this.pauseButton.visible = true;
 			
-			timePrevious = getTimer();
+			this.speed = 500;
+			
+			this.timePrevious = getTimer();
 			
 			this.status = "move";
 		}
@@ -156,13 +159,25 @@ package com.jok.sprites
 			switch(status) {
 				case "move": {
 					trace(getTimer() + " - Move");
-					if (getTimer()-timePrevious>Board.speed) {
+					if (getTimer()-timePrevious>this.speed) {
 						for each(player in players) {
 							var movements : Array = player.computeRealizableMovements();
 							trace("Movement - " + movements);
+							var wontDie : Array = new Array();
+							for each(var mvt : Number in movements) {
+								if (checkboxes[player.getRelativePosition() + mvt].hit != 0) {
+									wontDie.push(mvt);
+								}
+							}
+							if (wontDie.length>0) {
+								movements = wontDie;
+							}
 							var index : Number = Math.round(Math.random() * (movements.length + 1) );
 							while (index>=movements.length) {
 								index = Math.round(Math.random() * (movements.length + 1) );
+								if (wontDie && BoardElement(checkboxes[index]).hit==0) {
+									
+								}
 							}
 							currentMovement = movements[index];
 							trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
@@ -224,6 +239,7 @@ package com.jok.sprites
 						information.visible = false;
 						blob.move(players);
 						_cleaningStep = 127;
+						this.speed -= 50;
 					}
 					break;
 				case "paused":

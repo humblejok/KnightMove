@@ -28,10 +28,9 @@ package com.jok.sprites
 		[Embed(source="/../assets/Pause.png")]
 		public static var pause : Class;
 		
-		[Embed(source="/../assets/BADABB__.TTF", fontFamily="BadaboomFont", embedAsCFF="false")]
-		public static var MyFont:Class;
-		
-		
+		[Embed(source="/../assets/BADABB__.TTF", fontFamily="badaboomFontName", embedAsCFF="false")]
+		public static var badaboomFont:Class;
+
 		private static var textures : Dictionary = new Dictionary();
 		
 		public function AssetsProvider() {
