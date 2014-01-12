@@ -15,7 +15,7 @@ package com.jok.element
 		
 		public var image : Image;
 		
-		public function Element(parent : Board, row : Number, column : Number, texture : Texture = null) {
+		public function Element(parent : Board, row : Number, column : Number, texture : Texture = null, resize : Boolean = true) {
 			
 			this.column = column;
 			this.row = row;
@@ -23,8 +23,10 @@ package com.jok.element
 
 			this.image = new Image(texture);
 			this.image.alpha = 1.0;
-			this.image.width = size;
-			this.image.height = size;
+			if (resize) {
+				this.image.width = size;
+				this.image.height = size;
+			}
 			
 			this.displayOnBoard();
 		}

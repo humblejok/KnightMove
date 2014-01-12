@@ -17,7 +17,7 @@ package com.jok.element
 		private var _hit : Number = 3;
 		
 		public function BoardElement(parent : Board, row : Number, column : Number) {
-			super(parent, row, column, (row + column)%2==1?AssetsProvider.getAsTexture("blackBoard"):AssetsProvider.getAsTexture("whiteBoard"));
+			super(parent, row, column, (row + column)%2==1?AssetsProvider.getAsTexture("blackBoard"):AssetsProvider.getAsTexture("whiteBoard"), false);
 			this.image.rotation = 0.0;
 		}
 		
