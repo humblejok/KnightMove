@@ -1,6 +1,6 @@
 package com.jok.element
 {
-	import com.jok.sprites.AssetsProvider;
+	import com.jok.utils.AssetsProvider;
 	import com.jok.sprites.Board;
 	
 	import flash.geom.Point;

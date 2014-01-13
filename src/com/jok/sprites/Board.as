@@ -12,6 +12,7 @@ package com.jok.sprites
 	import starling.display.Sprite;
 	import starling.events.Event;
 	import starling.text.TextField;
+	import com.jok.utils.AssetsProvider;
 	
 	public class Board extends Sprite {
 		
@@ -69,8 +70,8 @@ package com.jok.sprites
 			checkboxes = new Array(Board.boardHeight * Board.boardWidth);
 			for (var i : Number = 0;i<Board.boardHeight * Board.boardWidth;i++) {
 				checkboxes[i] = new BoardElement(this, Math.floor(i / Board.boardWidth), i % Board.boardWidth);
-				this.addChild(checkboxes[i].image);
-				trace("->" + checkboxes[i].image.x + "," + checkboxes[i].image.y + "<-");
+				this.addChild(checkboxes[i].animatedSprite);
+				trace("->" + checkboxes[i].animatedSprite.x + "," + checkboxes[i].animatedSprite.y + "<-");
 			}
 			information = new TextField(300,100,"EMPTY","badaboomFontName", 36, 0xDD11DD, true)
 			information.x = 250;

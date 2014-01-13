@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="white-starling.png">
+	<!-- Created with Adobe Flash Professional version 13.1.0.226 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="white_00.png" x="0" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_01.png" x="120" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_02.png" x="240" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_03.png" x="360" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_04.png" x="480" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_05.png" x="600" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_06.png" x="720" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_07.png" x="840" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_08.png" x="0" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_09.png" x="120" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_10.png" x="240" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_11.png" x="360" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_12.png" x="480" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_13.png" x="600" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_14.png" x="720" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_15.png" x="480" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_16.png" x="840" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_17.png" x="0" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_18.png" x="120" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_19.png" x="240" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_20.png" x="360" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_21.png" x="480" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_22.png" x="600" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_23.png" x="720" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_24.png" x="840" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_25.png" x="0" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_26.png" x="120" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_27.png" x="240" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_28.png" x="360" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_29.png" x="480" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_30.png" x="600" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_31.png" x="720" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_32.png" x="840" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_33.png" x="0" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_34.png" x="120" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_35.png" x="240" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_36.png" x="360" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_37.png" x="480" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_38.png" x="600" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_39.png" x="720" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_40.png" x="840" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_41.png" x="0" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_42.png" x="120" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_43.png" x="240" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_44.png" x="360" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_45.png" x="480" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_46.png" x="600" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_47.png" x="720" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_48.png" x="840" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_49.png" x="0" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_50.png" x="120" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_51.png" x="240" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_52.png" x="360" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_53.png" x="480" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_54.png" x="600" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_55.png" x="720" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_56.png" x="840" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_57.png" x="0" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_58.png" x="120" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="white_59.png" x="240" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+</TextureAtlas>

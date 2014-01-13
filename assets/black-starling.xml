@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="black-starling.png">
+	<!-- Created with Adobe Flash Professional version 13.1.0.226 -->
+	<!-- http://www.adobe.com/products/flash.html -->
+	<SubTexture name="Symbole 10000" x="0" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_00.png" x="0" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_01.png" x="120" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_02.png" x="240" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_03.png" x="360" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_04.png" x="480" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_05.png" x="600" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_06.png" x="720" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_07.png" x="840" y="0" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_08.png" x="0" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_09.png" x="120" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_10.png" x="240" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_11.png" x="360" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_12.png" x="480" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_13.png" x="600" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_14.png" x="720" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_15.png" x="480" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_16.png" x="840" y="90" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_17.png" x="0" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_18.png" x="120" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_19.png" x="240" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_20.png" x="360" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_21.png" x="480" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_22.png" x="600" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_23.png" x="720" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_24.png" x="840" y="180" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_25.png" x="0" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_26.png" x="120" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_27.png" x="240" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_28.png" x="360" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_29.png" x="480" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_30.png" x="600" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_31.png" x="720" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_32.png" x="840" y="270" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_33.png" x="0" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_34.png" x="120" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_35.png" x="240" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_36.png" x="360" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_37.png" x="480" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_38.png" x="600" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_39.png" x="720" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_40.png" x="840" y="360" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_41.png" x="0" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_42.png" x="120" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_43.png" x="240" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_44.png" x="360" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_45.png" x="480" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_46.png" x="600" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_47.png" x="720" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_48.png" x="840" y="450" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_49.png" x="0" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_50.png" x="120" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_51.png" x="240" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_52.png" x="360" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_53.png" x="480" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_54.png" x="600" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_55.png" x="720" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_56.png" x="840" y="540" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_57.png" x="0" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_58.png" x="120" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+	<SubTexture name="black_59.png" x="240" y="630" width="120" height="90" pivotX="0" pivotY="0"/>
+</TextureAtlas>
