@@ -176,9 +176,6 @@ package com.jok.sprites
 							var index : Number = Math.round(Math.random() * (movements.length + 1) );
 							while (index>=movements.length) {
 								index = Math.round(Math.random() * (movements.length + 1) );
-								if (wontDie && BoardElement(checkboxes[index]).hit==0) {
-									
-								}
 							}
 							currentMovement = movements[index];
 							trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
@@ -246,9 +243,6 @@ package com.jok.sprites
 				case "paused":
 				default:
 					break;
-			}
-			for each(var cb : BoardElement in checkboxes) {
-				cb.spin();
 			}
 		}
 		

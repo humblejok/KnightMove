@@ -1,28 +1,24 @@
 package com.jok.element
 {
-	import com.jok.sprites.BlackSprite;
 	import com.jok.sprites.Board;
-	import com.jok.sprites.WhiteSprite;
-	
-	import starling.display.Sprite;
+	import com.jok.sprites.BoardSprite;
+	import com.jok.utils.AssetsProvider;
 	
 	public class BoardElement {
 		
-		public static const ALPHAS : Array = [0.0, 0.33, 0.66, 1.0];
-		
 		public var size : Number = 90;
-		public var animatedSprite : Sprite;
+		public var animatedSprite : BoardSprite;
 
-		private var _hit : Number = 3;
 		private var _column : Number = 0;
 		private var _row : Number = 0;
 		private var _board : Board;
 		
 		public function BoardElement(parent : Board, row : Number, column : Number) {
-			this.animatedSprite = (row + column)%2==1?new BlackSprite():new WhiteSprite();
+			this.animatedSprite = (row + column)%2==1?new BoardSprite(AssetsProvider.getAnimatedBlack().getTextures("black_")):new BoardSprite(AssetsProvider.getAnimatedWhite().getTextures("white_"));
 			this._column = column;
 			this._row = row;
 			this._board = parent;
+			this.displayOnBoard();
 		}
 		
 		public function displayOnBoard() : void {
@@ -31,28 +27,25 @@ package com.jok.element
 		}
 		
 		public function get hit() : Number {
-			return _hit;
+			return animatedSprite.hit;
 		}
 
 		public function elementHit() : void {
-			_hit -= 1;
-			animatedSprite["animate"]();
-		}
-		
-		public function spin() : void {
+			animatedSprite.hit -= 1;
+			this.animatedSprite.animate();
 		}
 		
 		public function repair(complete : Boolean = false) : void {
 			if (!complete) {
-				if (_hit==0) {
-					_hit = 1;
+				if (animatedSprite.hit==0) {
+					animatedSprite.hit = 1;
 					this._board.scoreValue += 50;
-					this.animatedSprite.alpha = BoardElement.ALPHAS[_hit];
 				}
 			} else {
-				this._hit = 3;
-				this.animatedSprite.alpha = BoardElement.ALPHAS[_hit];
+				animatedSprite.hit = 3;
 			}
+			animatedSprite.applyHit();
+			this.animatedSprite.animate();
 		}
 
 		public function convertRowToPosition(r : Number) : Number {
