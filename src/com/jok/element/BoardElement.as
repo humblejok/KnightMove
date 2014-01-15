@@ -32,6 +32,9 @@ package com.jok.element
 
 		public function elementHit() : void {
 			animatedSprite.hit -= 1;
+			if (animatedSprite.hit==0) {
+				this._board.scoreValue += 50;
+			}
 			this.animatedSprite.animate();
 		}
 		
