@@ -3,6 +3,8 @@ package com.jok.sprites
 	import com.jok.element.BlobElement;
 	import com.jok.element.BoardElement;
 	import com.jok.element.KnightElement;
+	import com.jok.element.TargetElement;
+	import com.jok.utils.AssetsProvider;
 	
 	import flash.geom.Point;
 	import flash.utils.getTimer;
@@ -11,8 +13,10 @@ package com.jok.sprites
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import starling.events.Touch;
+	import starling.events.TouchEvent;
+	import starling.events.TouchPhase;
 	import starling.text.TextField;
-	import com.jok.utils.AssetsProvider;
 	
 	public class Board extends Sprite {
 		
@@ -20,7 +24,7 @@ package com.jok.sprites
 		
 		public static var boardHeight : Number = 4;
 		
-		public var speed : Number = 500;
+		public var speed : Number = 900;
 		
 		private var background : Image;
 		private var checkboxes : Array;
@@ -29,6 +33,7 @@ package com.jok.sprites
 		private var information : TextField;
 		private var score : TextField;
 		private var blob : BlobElement;
+		private var target : TargetElement;
 		
 		private var players : Array = new Array();
 		
@@ -110,12 +115,18 @@ package com.jok.sprites
 			this.startButton.removeEventListener(Event.TRIGGERED, onStartButtonTriggered);
 			this.startButton.visible = false;
 			this.pauseButton.visible = true;
-			this.speed = 500;
+			this.speed = 900;
+			
+			this.target = new TargetElement(this,0,0);
+			this.target.image.visible = false;
+			this.target.image.alpha = 0.5;
+			this.target.displayOnBoard();
 			
 			this.players.push(new KnightElement(this, 2, 4));
 			this.blob = new BlobElement(this, 0,0);
 			this.blob.move(players);
 			
+			this.addChild(target.image);
 			this.addChild(blob.image);
 			this.addChild(players[0].image); // TODO Change to dynamic
 			
@@ -127,8 +138,36 @@ package com.jok.sprites
 			
 			timePrevious = getTimer();
 			this.addEventListener(Event.ENTER_FRAME, checkTimeElapsed);
+			this.addEventListener(TouchEvent.TOUCH, onScreenTouched);
 		}
 		
+		private function onScreenTouched(event : TouchEvent) : void {
+			trace(event);
+			var touch : Touch = event.getTouch(this);
+			if (touch) {
+				switch(touch.phase) {
+					case TouchPhase.ENDED: {
+						var col : Number = Math.floor((touch.globalX - 40) / 90);
+						var row : Number = Math.floor((touch.globalY - 120) / 90);
+						trace("INPUT->>>" + col + "----" + row + "<<<-INPUT");
+						this.target.row = row;
+						this.target.column = col;
+						if (this.status=="move") {
+							this.target.displayOnBoard();
+							for each(var player : KnightElement in this.players) {
+								var mvt : Number = this.target.getRelativePosition()-player.getRelativePosition();
+								if (player.computeRealizableMovements().indexOf(mvt)!=-1) {
+									this.target.image.visible = true;
+								}
+							}
+						}
+					}
+					default: {
+						break;
+					}
+				}
+			}
+		}		
 		
 		private function restartGame(event : Event) : void {
 			this.scoreValue = 0;
@@ -148,7 +187,7 @@ package com.jok.sprites
 			this.startButton.visible = false;
 			this.pauseButton.visible = true;
 			
-			this.speed = 500;
+			this.speed = 900;
 			
 			this.timePrevious = getTimer();
 			
@@ -186,6 +225,7 @@ package com.jok.sprites
 					break;
 				}
 				case "moving": {
+					this.target.image.visible = false;
 					if (_pathes.length==0) {
 						for each(player in players) {
 							_pathes.push(player.predictMovement(currentMovement));

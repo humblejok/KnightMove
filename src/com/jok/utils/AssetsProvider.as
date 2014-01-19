@@ -29,6 +29,9 @@ package com.jok.utils
 		[Embed(source="/../assets/Pause.png")]
 		public static var pause : Class;
 		
+		[Embed(source="/../assets/Target.png")]
+		public static var target : Class;
+		
 		[Embed(source="/../assets/BADABB__.TTF", fontFamily="badaboomFontName", embedAsCFF="false")]
 		public static var badaboomFont:Class;
 
