@@ -144,25 +144,23 @@ package com.jok.sprites
 		}
 		
 		private function onScreenTouched(event : TouchEvent) : void {
-			trace(event);
+			//trace(event);
 			var touch : Touch = event.getTouch(this);
 			if (touch) {
 				switch(touch.phase) {
-					case TouchPhase.ENDED: {
+					case TouchPhase.BEGAN: {
 						var col : Number = Math.floor((touch.globalX - 40) / 90);
 						var row : Number = Math.floor((touch.globalY - 120) / 90);
 						trace("INPUT->>>" + col + "----" + row + "<<<-INPUT");
 						this.target.row = row;
 						this.target.column = col;
-						if (this.status=="move") {
-							this.target.displayOnBoard();
-							for each(var player : KnightElement in this.players) {
-								var mvt : Number = this.target.getRelativePosition()-player.getRelativePosition();
-								var mvtIndex : Number = player.computeRealizableMovements().indexOf(mvt);
-								if (mvtIndex!=-1) {
-									_chosenMovement = mvtIndex;
-									this.target.image.visible = true;
-								}
+						this.target.displayOnBoard();
+						for each(var player : KnightElement in this.players) {
+							var mvt : Number = this.target.getRelativePosition()-player.targetRelativePosition;
+							var mvtIndex : Number = player.computeRealizableMovements().indexOf(mvt);
+							if (mvtIndex!=-1) {
+								_chosenMovement = mvtIndex;
+								this.target.image.visible = true;
 							}
 						}
 					}
@@ -202,11 +200,11 @@ package com.jok.sprites
 			var player : KnightElement;
 			switch(status) {
 				case "move": {
-					trace(getTimer() + " - Move");
+					//trace(getTimer() + " - Move");
 					if (getTimer()-timePrevious>this.speed) {
-						if (_chosenMovement==-1) {
-							for each(player in players) {
-								var movements : Array = player.computeRealizableMovements();
+						for each(player in players) {
+							var movements : Array = player.computeRealizableMovements();
+							if (_chosenMovement==-1) {
 								trace("Movement - " + movements);
 								var wontDie : Array = new Array();
 								for each(var mvt : Number in movements) {
@@ -223,13 +221,15 @@ package com.jok.sprites
 								}
 								currentMovement = movements[index];
 								trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
+							} else {
+								currentMovement = movements[_chosenMovement];
+								trace("Movement - INDEX:" + _chosenMovement + " MVT:" + movements[_chosenMovement]);
 							}
-						} else {
-							currentMovement = movements[_chosenMovement];
+							player.targetRelativePosition = player.getRelativePosition() + currentMovement;
+							_chosenMovement = -1;
+							_status = "moving";
+							_pathes = new Array();
 						}
-						_chosenMovement = -1;
-						_status = "moving";
-						_pathes = new Array();
 					}
 					break;
 				}
@@ -240,7 +240,7 @@ package com.jok.sprites
 							_pathes.push(player.predictMovement(currentMovement));
 						}
 					}
-					trace(getTimer() + " - Moving - Remains " + _pathes[0]);
+					//trace(getTimer() + " - Moving - Remains " + _pathes[0]);
 					for (var i : Number = 0;i<_pathes.length; i++) {
 						var point : Point = _pathes[i][0];
 						players[i].image.x = point.x;

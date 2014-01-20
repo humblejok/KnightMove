@@ -1,7 +1,7 @@
 package com.jok.element
 {
-	import com.jok.utils.AssetsProvider;
 	import com.jok.sprites.Board;
+	import com.jok.utils.AssetsProvider;
 	
 	import flash.geom.Point;
 
@@ -10,8 +10,11 @@ package com.jok.element
 		private static var movements : Array = [-17, -15, -10, -6, 6, 10, 15, 17];
 		private static var limit : Number = Board.boardWidth * Board.boardHeight;
 		
+		private var _targetRelativePosition : Number = -1;
+		
 		public function KnightElement(parent : Board,row : Number, column : Number) {
 			super(parent, row, column, AssetsProvider.getAsTexture("chessKnight"));
+			this._targetRelativePosition = this.getRelativePosition();
 		}
 		
 		public function predictMovement(movement : Number) : Array {
@@ -41,8 +44,8 @@ package com.jok.element
 		public function computeRealizableMovements() : Array {
 			var results : Array = new Array();
 			for each (var m : Number in KnightElement.movements) {
-				var result : Number = this.getRelativePosition() + m;
-				var moduloSource : Number = this.getRelativePosition() % Board.boardWidth;
+				var result : Number = this._targetRelativePosition + m;
+				var moduloSource : Number = this._targetRelativePosition % Board.boardWidth;
 				var moduloTarget : Number = result % Board.boardWidth;
 				var offset : Number = Math.abs(moduloTarget - moduloSource);
 				if (result>=0 && result<KnightElement.limit && offset<=2) {
@@ -51,5 +54,19 @@ package com.jok.element
 			}
 			return results;
 		}
+
+		public override function setRelativePosition(p : Number) : void {
+			super.setRelativePosition(p);
+			this._targetRelativePosition = p;
+		}
+		
+		public function get targetRelativePosition() : Number {
+			return _targetRelativePosition;
+		}
+
+		public function set targetRelativePosition(value : Number) : void {
+			_targetRelativePosition = value;
+		}
+
 	}
 }
