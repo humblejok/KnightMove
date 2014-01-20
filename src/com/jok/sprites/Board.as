@@ -46,8 +46,10 @@ package com.jok.sprites
 		private var _pathes : Array = new Array();
 		private var _currentMvtGap : Number;
 		private var _scoreValue : Number = 0;
+		private var _chosenMovement : Number = -1;
 		
 		private var _cleaningStep : Number = 127;
+		
 		
 		public function Board() {
 			super();
@@ -156,7 +158,9 @@ package com.jok.sprites
 							this.target.displayOnBoard();
 							for each(var player : KnightElement in this.players) {
 								var mvt : Number = this.target.getRelativePosition()-player.getRelativePosition();
-								if (player.computeRealizableMovements().indexOf(mvt)!=-1) {
+								var mvtIndex : Number = player.computeRealizableMovements().indexOf(mvt);
+								if (mvtIndex!=-1) {
+									_chosenMovement = mvtIndex;
 									this.target.image.visible = true;
 								}
 							}
@@ -200,25 +204,30 @@ package com.jok.sprites
 				case "move": {
 					trace(getTimer() + " - Move");
 					if (getTimer()-timePrevious>this.speed) {
-						for each(player in players) {
-							var movements : Array = player.computeRealizableMovements();
-							trace("Movement - " + movements);
-							var wontDie : Array = new Array();
-							for each(var mvt : Number in movements) {
-								if (checkboxes[player.getRelativePosition() + mvt].hit != 0) {
-									wontDie.push(mvt);
+						if (_chosenMovement==-1) {
+							for each(player in players) {
+								var movements : Array = player.computeRealizableMovements();
+								trace("Movement - " + movements);
+								var wontDie : Array = new Array();
+								for each(var mvt : Number in movements) {
+									if (checkboxes[player.getRelativePosition() + mvt].hit != 0) {
+										wontDie.push(mvt);
+									}
 								}
+								if (wontDie.length>0) {
+									movements = wontDie;
+								}
+								var index : Number = Math.round(Math.random() * (movements.length + 1) );
+								while (index>=movements.length) {
+									index = Math.round(Math.random() * (movements.length + 1) );
+								}
+								currentMovement = movements[index];
+								trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
 							}
-							if (wontDie.length>0) {
-								movements = wontDie;
-							}
-							var index : Number = Math.round(Math.random() * (movements.length + 1) );
-							while (index>=movements.length) {
-								index = Math.round(Math.random() * (movements.length + 1) );
-							}
-							currentMovement = movements[index];
-							trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
+						} else {
+							currentMovement = movements[_chosenMovement];
 						}
+						_chosenMovement = -1;
 						_status = "moving";
 						_pathes = new Array();
 					}
