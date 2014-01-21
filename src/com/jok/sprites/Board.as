@@ -119,8 +119,8 @@ package com.jok.sprites
 			this.pauseButton.visible = true;
 			this.speed = 900;
 			
-			this.target = new TargetElement(this,0,0);
-			this.target.image.visible = false;
+			this.target = new TargetElement(this, 0, 3);
+			this.target.image.visible = true;
 			this.target.image.alpha = 0.5;
 			this.target.displayOnBoard();
 			
@@ -141,6 +141,8 @@ package com.jok.sprites
 			timePrevious = getTimer();
 			this.addEventListener(Event.ENTER_FRAME, checkTimeElapsed);
 			this.addEventListener(TouchEvent.TOUCH, onScreenTouched);
+			
+			_chosenMovement = 0;
 		}
 		
 		private function onScreenTouched(event : TouchEvent) : void {
@@ -154,13 +156,12 @@ package com.jok.sprites
 						trace("INPUT->>>" + col + "----" + row + "<<<-INPUT");
 						this.target.row = row;
 						this.target.column = col;
-						this.target.displayOnBoard();
 						for each(var player : KnightElement in this.players) {
 							var mvt : Number = this.target.getRelativePosition()-player.targetRelativePosition;
 							var mvtIndex : Number = player.computeRealizableMovements().indexOf(mvt);
 							if (mvtIndex!=-1) {
+								this.target.displayOnBoard();
 								_chosenMovement = mvtIndex;
-								this.target.image.visible = true;
 							}
 						}
 					}
@@ -193,54 +194,87 @@ package com.jok.sprites
 			
 			this.timePrevious = getTimer();
 			
+			this.target.image.visible = true;
+			
 			this.status = "move";
+			
+			this.target.row = 0;
+			this.target.column = 3;
+			this.target.displayOnBoard();
+			_chosenMovement = 0;
+		}
+		
+		private function oldMOVE() : void {
+			var player : KnightElement;
+			for each(player in players) {
+				var movements : Array = player.computeRealizableMovements();
+				if (_chosenMovement==-1) {
+					trace("Movement - " + movements);
+					var wontDie : Array = new Array();
+					for each(var mvt : Number in movements) {
+						if (checkboxes[player.getRelativePosition() + mvt].hit != 0) {
+							wontDie.push(mvt);
+						}
+					}
+					if (wontDie.length>0) {
+						movements = wontDie;
+					}
+					var index : Number = Math.round(Math.random() * (movements.length + 1) );
+					while (index>=movements.length) {
+						index = Math.round(Math.random() * (movements.length + 1) );
+					}
+					currentMovement = movements[index];
+					trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
+				} else {
+					currentMovement = movements[_chosenMovement];
+					trace("Movement - INDEX:" + _chosenMovement + " MVT:" + movements[_chosenMovement]);
+				}
+				player.targetRelativePosition = player.getRelativePosition() + currentMovement;
+				_chosenMovement = -1;
+				_status = "moving";
+				_pathes = new Array();
+			}
 		}
 		
 		private function checkTimeElapsed(event : Event):void {
 			var player : KnightElement;
 			switch(status) {
 				case "move": {
-					//trace(getTimer() + " - Move");
 					if (getTimer()-timePrevious>this.speed) {
 						for each(player in players) {
 							var movements : Array = player.computeRealizableMovements();
-							if (_chosenMovement==-1) {
-								trace("Movement - " + movements);
-								var wontDie : Array = new Array();
-								for each(var mvt : Number in movements) {
-									if (checkboxes[player.getRelativePosition() + mvt].hit != 0) {
-										wontDie.push(mvt);
-									}
-								}
-								if (wontDie.length>0) {
-									movements = wontDie;
-								}
-								var index : Number = Math.round(Math.random() * (movements.length + 1) );
-								while (index>=movements.length) {
-									index = Math.round(Math.random() * (movements.length + 1) );
-								}
-								currentMovement = movements[index];
-								trace("Movement - INDEX:" + index + " MVT:" + movements[index]);
-							} else {
-								currentMovement = movements[_chosenMovement];
-								trace("Movement - INDEX:" + _chosenMovement + " MVT:" + movements[_chosenMovement]);
-							}
+							currentMovement = movements[_chosenMovement];
+							trace("Movement - INDEX:" + _chosenMovement + " MVT:" + movements[_chosenMovement]);
 							player.targetRelativePosition = player.getRelativePosition() + currentMovement;
-							_chosenMovement = -1;
 							_status = "moving";
 							_pathes = new Array();
+							var newMvt : Array = player.computeRealizableMovements();
+							for (var index : Number = 0;index<newMvt.length;index++) {
+								if (currentMovement==newMvt[index]) {
+									_chosenMovement = index;
+									break;
+								} else if (currentMovement>newMvt[index]) {
+									if (index>0) {
+										_chosenMovement = index - 1;
+									} else {
+										_chosenMovement = 0;
+									}
+									break;
+								}									
+							}
+							this.target.setRelativePosition(this.target.getRelativePosition() + newMvt[_chosenMovement]);
+							this.target.displayOnBoard();
 						}
 					}
 					break;
 				}
 				case "moving": {
-					this.target.image.visible = false;
 					if (_pathes.length==0) {
 						for each(player in players) {
 							_pathes.push(player.predictMovement(currentMovement));
 						}
 					}
-					//trace(getTimer() + " - Moving - Remains " + _pathes[0]);
+					//trace("Moving - Remains " + _pathes[0]);
 					for (var i : Number = 0;i<_pathes.length; i++) {
 						var point : Point = _pathes[i][0];
 						players[i].image.x = point.x;
@@ -263,6 +297,7 @@ package com.jok.sprites
 								startButton.addEventListener(Event.TRIGGERED, restartGame);
 								player.image.visible = false;
 								blob.image.visible = false;
+								target.image.visible = true;
 							}
 							if (player.getRelativePosition()==blob.getRelativePosition()) {
 								this.scoreValue += 100;

@@ -8,6 +8,7 @@ package com.jok.element
 	public class KnightElement extends Element {
 		
 		private static var movements : Array = [-17, -15, -10, -6, 6, 10, 15, 17];
+		private static var movements_ordered : Array = [-17, -15, -6, 10, 17, 15, 6, -10];
 		private static var limit : Number = Board.boardWidth * Board.boardHeight;
 		
 		private var _targetRelativePosition : Number = -1;
