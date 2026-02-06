@@ -50,8 +50,8 @@ export default class Board extends PIXI.Container {
         this.startButton = new PIXI.Sprite(AssetsProvider.getAsTexture('chessKing'));
         this.startButton.x = 144;
         this.startButton.y = 44;
-        this.startButton.interactive = true;
-        this.startButton.buttonMode = true;
+        this.startButton.eventMode = 'static';
+        this.startButton.cursor = 'pointer';
         this.startButton.on('pointerdown', () => this.onStartButtonTriggered());
         this.addChild(this.startButton);
         
@@ -62,8 +62,8 @@ export default class Board extends PIXI.Container {
         this.pauseButton.width = 40;
         this.pauseButton.height = 40;
         this.pauseButton.visible = false;
-        this.pauseButton.interactive = true;
-        this.pauseButton.buttonMode = true;
+        this.pauseButton.eventMode = 'static';
+        this.pauseButton.cursor = 'pointer';
         this.pauseButton.on('pointerdown', () => this.onPauseButtonTriggered());
         this.addChild(this.pauseButton);
         
@@ -103,7 +103,7 @@ export default class Board extends PIXI.Container {
         this.addChild(this.score);
         
         // Set up interactive area for touch/click input
-        this.interactive = true;
+        this.eventMode = 'static';
         this.on('pointerdown', (event) => this.onScreenTouched(event));
         
         // Start game loop
@@ -259,12 +259,14 @@ export default class Board extends PIXI.Container {
                 
                 for (let i = 0; i < this._pathes.length; i++) {
                     const point = this._pathes[i][0];
-                    this.players[i].image.x = point.x;
-                    this.players[i].image.y = point.y;
-                    this._pathes[i].shift();
+                    if (point) {
+                        this.players[i].image.x = point.x;
+                        this.players[i].image.y = point.y;
+                        this._pathes[i].shift();
+                    }
                 }
                 
-                if (this._pathes[this._pathes.length - 1].length === 0) {
+                if (this._pathes.length > 0 && this._pathes[this._pathes.length - 1].length === 0) {
                     this._status = 'move';
                     
                     for (const player of this.players) {
