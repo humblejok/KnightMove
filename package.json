@@ -1,0 +1,20 @@
+{
+  "name": "knight-move",
+  "version": "1.0.0",
+  "description": "Knight Move - A chess knight puzzle game converted from ActionScript to JavaScript",
+  "main": "src/js/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["game", "chess", "knight", "puzzle"],
+  "author": "humblejok",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "pixi.js": "^7.3.0"
+  }
+}
