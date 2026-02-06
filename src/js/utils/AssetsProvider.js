@@ -131,12 +131,21 @@ class AssetsProvider {
             }
         }
         // Sort by name to ensure correct order
-        textures.sort((a, b) => {
-            const aNum = parseInt(a.textureCacheIds[0].match(/\d+/)?.[0] || 0);
-            const bNum = parseInt(b.textureCacheIds[0].match(/\d+/)?.[0] || 0);
-            return aNum - bNum;
+        return this.sortTexturesByFrameNumber(textures);
+    }
+
+    /**
+     * Sort textures by frame number extracted from texture cache IDs
+     * Shared utility for proper animation frame ordering
+     */
+    sortTexturesByFrameNumber(textures) {
+        return textures.sort((a, b) => {
+            const getFrameNum = (tex) => {
+                const match = tex.textureCacheIds?.[0]?.match(/\d+/);
+                return match ? parseInt(match[0]) : 0;
+            };
+            return getFrameNum(a) - getFrameNum(b);
         });
-        return textures;
     }
 }
 

@@ -20,29 +20,10 @@ export default class BoardElement {
         
         // Get textures for animation
         const prefix = isWhite ? 'white_' : 'black_';
-        const textures = this.getTexturesFromAtlas(atlas, prefix);
+        const textures = AssetsProvider.getTexturesByPrefix(atlas, prefix);
         
         this.animatedSprite = new BoardSprite(textures);
         this.displayOnBoard();
-    }
-
-    getTexturesFromAtlas(atlas, prefix) {
-        const textures = [];
-        for (const name in atlas) {
-            if (name.startsWith(prefix)) {
-                textures.push(atlas[name]);
-            }
-        }
-        // Sort textures by frame number
-        textures.sort((a, b) => {
-            const getFrameNum = (tex) => {
-                const match = tex.textureCacheIds?.[0]?.match(/\d+/) || 
-                              Object.keys(tex)[0]?.match(/\d+/);
-                return match ? parseInt(match[0]) : 0;
-            };
-            return getFrameNum(a) - getFrameNum(b);
-        });
-        return textures;
     }
 
     displayOnBoard() {
