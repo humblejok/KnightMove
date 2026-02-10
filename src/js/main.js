@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import AssetsProvider from './utils/AssetsProvider.js';
 import Game from './sprites/Game.js';
+import { initializeMobile } from './utils/MobileInit.js';
 
 /**
  * Main application entry point
@@ -12,7 +13,9 @@ const app = new PIXI.Application({
     width: 800,
     height: 600,
     backgroundColor: 0x333333,
-    antialias: true
+    antialias: true,
+    resolution: window.devicePixelRatio || 1,
+    autoDensity: true
 });
 
 // Add canvas to DOM
@@ -32,6 +35,9 @@ app.stage.addChild(loadingText);
 // Load assets and start game
 async function init() {
     try {
+        // Initialize mobile features (Android/iOS)
+        await initializeMobile();
+        
         console.log('Loading assets...');
         await AssetsProvider.loadAssets();
         console.log('Assets loaded!');

@@ -67,7 +67,7 @@ export default class Board extends PIXI.Container {
         this.pauseButton.on('pointerdown', () => this.onPauseButtonTriggered());
         this.addChild(this.pauseButton);
         
-        // Create board tiles
+        // Create board tiles (hidden initially until game starts)
         this.checkboxes = new Array(Board.boardHeight * Board.boardWidth);
         for (let i = 0; i < Board.boardHeight * Board.boardWidth; i++) {
             this.checkboxes[i] = new BoardElement(
@@ -75,6 +75,7 @@ export default class Board extends PIXI.Container {
                 Math.floor(i / Board.boardWidth),
                 i % Board.boardWidth
             );
+            this.checkboxes[i].animatedSprite.visible = false;
             this.addChild(this.checkboxes[i].animatedSprite);
         }
         
@@ -132,6 +133,11 @@ export default class Board extends PIXI.Container {
         this.pauseButton.visible = true;
         this.speed = 900;
         
+        // Show board tiles
+        for (const cb of this.checkboxes) {
+            cb.animatedSprite.visible = true;
+        }
+        
         // Create target
         this.target = new TargetElement(this, 0, 3);
         this.target.image.visible = true;
@@ -182,6 +188,7 @@ export default class Board extends PIXI.Container {
         this.scoreValue = 0;
         
         for (const cb of this.checkboxes) {
+            cb.animatedSprite.visible = true;
             cb.repair(true);
         }
         
@@ -283,7 +290,11 @@ export default class Board extends PIXI.Container {
                             this.startButton.on('pointerdown', () => this.restartGame());
                             player.image.visible = false;
                             this.blob.image.visible = false;
-                            this.target.image.visible = true;
+                            this.target.image.visible = false;
+                            // Hide board tiles
+                            for (const cb of this.checkboxes) {
+                                cb.animatedSprite.visible = false;
+                            }
                         }
                         
                         if (player.getRelativePosition() === this.blob.getRelativePosition()) {
